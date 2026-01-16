@@ -1,0 +1,19 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+    volumes:
+      - ./backend/database.sqlite:/app/database.sqlite
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:3001
+      - NEXT_PUBLIC_CONTRACT_ADDRESS=0x117f719fd50D914c23e0461c3c37274f0F5E1fDC
+    depends_on:
+      - backend
